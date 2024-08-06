@@ -1,0 +1,14 @@
+name: Build
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: Access ACCESS_TOKEN
+        env:
+          BEARER_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        run: echo ACCESS_TOKEN=\"$ACCESS_TOKEN\" > ./data/network/secrets.properties
+      - name: Build the app
+        run: ./gradlew build
